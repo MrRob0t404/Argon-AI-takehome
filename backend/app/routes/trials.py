@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Query, HTTPException
 from datetime import date
-from app.services.trial_service import search_trials
+from services.trial_service import search_trials
 
-router = APIRouter()
+app = APIRouter()
 
-@router.get("/trials")
+@app.get("/trials")
 def get_trials(
     company: str = Query(None),
     phase: str = Query(None),

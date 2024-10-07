@@ -51,6 +51,7 @@ a {
 /* Study Card */
 .study-card {
   border: white 1px solid;
+  border-radius: 8px;
   padding: 24px;
   margin: 24px;
 }
@@ -58,6 +59,7 @@ a {
 /* Study Details */
 .study-details {
   border: white 1px solid;
+  border-radius: 8px;
   padding: 24px;
   margin: 24px;
 }

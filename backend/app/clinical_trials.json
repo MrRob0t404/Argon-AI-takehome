@@ -1,10 +1,22 @@
-{
-  "id": "NCT00000102",
-  "title": "Study of XYZ in Non-Small Cell Lung Cancer",
-  "phase": "Phase 3",
-  "status": "Recruiting",
-  "company": "Pharma Co.",
-  "condition": "Non-Small Cell Lung Cancer",
-  "start_date": "2021-01-01",
-  "end_date": "2023-12-31"
-}
+[
+  {
+    "id": "NCT00000102",
+    "title": "Study of XYZ in Non-Small Cell Lung Cancer",
+    "phase": "Phase 3",
+    "status": "Recruiting",
+    "company": "Pharma Co.",
+    "condition": "Non-Small Cell Lung Cancer",
+    "start_date": "2021-01-01",
+    "end_date": "2023-12-31"
+  },
+  {
+    "id": "NCT00000103",
+    "title": "Immunotherapy ABC for NSCLC",
+    "phase": "Phase 2",
+    "status": "Completed",
+    "company": "BioTech Inc.",
+    "condition": "Non-Small Cell Lung Cancer",
+    "start_date": "2019-06-01",
+    "end_date": "2021-12-01"
+  }
+]

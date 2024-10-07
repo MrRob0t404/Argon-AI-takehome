@@ -5,7 +5,7 @@ from services.trial_service import search_trials
 app = FastAPI()
 
 # Include the trials router
-app.include_router(trials.router)
+app.include_router(trials.app)
 
 @app.get("/")
 def read_root():

@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <div>
       <h1>Search for a Clinical Trial!</h1>
-      <SearchForm />
+      <SearchForm onSearch={function (): void {
+        console.error("Function not implemented.");
+      } } />
       <Results />
     </div>
   );

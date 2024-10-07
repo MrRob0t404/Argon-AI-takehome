@@ -40,3 +40,24 @@ a {
     color-scheme: dark;
   }
 }
+
+/* HOME PAGE */
+.study-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Study Card */
+.study-card {
+  border: white 1px solid;
+  padding: 24px;
+  margin: 24px;
+}
+
+/* Study Details */
+.study-details {
+  border: white 1px solid;
+  padding: 24px;
+  margin: 24px;
+}

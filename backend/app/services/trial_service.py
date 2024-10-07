@@ -1,4 +1,4 @@
-from app.utils.data_loader import load_trials_data
+from utils.data_loader import load_trials_data
 from datetime import datetime
 
 clinical_trials = load_trials_data()

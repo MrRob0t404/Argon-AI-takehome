@@ -6,11 +6,10 @@ app = APIRouter()
 @app.get("/trials")
 def get_trials(
     condition: str = Query(None),
-    skip: int = Query(0),
-    limit: int = Query(10)
+    page: int = Query(1, ge=1),
+    limit: int = Query(10, ge=1, le=100)
 ):
-    print('FROM BACKEND', condition)
     if condition:
-        return search_trials(condition, skip, limit)
+        return search_trials(condition, page, limit)
     else:
-        return get_all_trials(skip, limit)
+        return get_all_trials(page, limit)

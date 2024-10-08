@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: "http://127.0.0.1:8000",
 });
 
-export const getTrials = async (params: unknown) => {
+export const getTrials = async (params: { condition?: string }) => {
   const { data } = await api.get("/trials", { params });
   return data;
 };

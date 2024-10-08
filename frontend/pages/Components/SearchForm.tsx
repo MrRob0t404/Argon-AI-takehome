@@ -2,8 +2,10 @@ import { useState } from "react";
 
 export default function SearchForm({
   onSearch,
+  removeResult,
 }: {
   onSearch: (query: string) => void;
+  removeResult: () => void;
 }) {
   const [query, setQuery] = useState("");
 
@@ -15,6 +17,7 @@ export default function SearchForm({
   const handleClearSearch = () => {
     setQuery("");
     onSearch(query);
+    removeResult();
   };
 
   return (

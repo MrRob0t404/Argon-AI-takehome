@@ -1,8 +1,26 @@
 import React from "react";
 
-// TODO: Provide proper type to study
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function StudyDetails({ study }: { study: any }) {
+type Study = {
+  protocolSection: {
+    identificationModule: {
+      officialTitle: string;
+      nctId: string;
+    };
+    statusModule: {
+      overallStatus: string;
+    };
+    descriptionModule: {
+      briefSummary: string;
+    };
+    sponsorCollaboratorsModule: {
+      leadSponsor: {
+        name: string;
+      };
+    };
+  };
+};
+
+export default function StudyDetails({ study }: { study: Study }) {
   const { protocolSection } = study;
   const {
     identificationModule,

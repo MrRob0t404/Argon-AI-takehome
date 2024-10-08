@@ -9,7 +9,7 @@ def get_trials(
     company: str = Query(None),
     phase: str = Query(None),
     status: str = Query(None),
-    condition: str = Query("Non-Small Cell Lung Cancer"),
+    condition: str = Query("Non-Small Cell Lung Cancer"),  # Set default condition here
     start_date: date = Query(None),
     end_date: date = Query(None),
     skip: int = Query(0),  # Skip the first `n` results

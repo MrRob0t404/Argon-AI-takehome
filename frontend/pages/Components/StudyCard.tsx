@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Shows what kind of data we can expect
 interface StudyProps {
@@ -16,14 +16,20 @@ interface StudyProps {
   removeStudy: () => void;
 }
 
-export default function StudyCard({
+const StudyCard: React.FC<StudyProps> = ({
   study,
   handleStudyClick,
   removeStudy,
-}: StudyProps) {
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
   const { identificationModule, statusModule } = study.protocolSection;
+
   return (
-    <div className="study-card">
+    <div
+      className={`study-card ${isHovered ? "hovered" : ""}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div onClick={handleStudyClick}>
         <h3>{identificationModule.briefTitle}</h3>
         <p>
@@ -37,7 +43,11 @@ export default function StudyCard({
           <strong>Status:</strong> {statusModule.overallStatus}
         </p>
       </div>
-      <button onClick={removeStudy}>Remove</button>
+      <button onClick={removeStudy} className="remove-button" type="button">
+        Remove
+      </button>
     </div>
   );
-}
+};
+
+export default StudyCard;

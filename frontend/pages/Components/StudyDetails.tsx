@@ -1,26 +1,11 @@
 import React from "react";
+import { Study } from '../../types/study';
 
-type Study = {
-  protocolSection: {
-    identificationModule: {
-      officialTitle: string;
-      nctId: string;
-    };
-    statusModule: {
-      overallStatus: string;
-    };
-    descriptionModule: {
-      briefSummary: string;
-    };
-    sponsorCollaboratorsModule: {
-      leadSponsor: {
-        name: string;
-      };
-    };
-  };
-};
+interface StudyDetailsProps {
+  study: Study;
+}
 
-export default function StudyDetails({ study }: { study: Study }) {
+const StudyDetails: React.FC<StudyDetailsProps> = ({ study }) => {
   const { protocolSection } = study;
   const {
     identificationModule,
@@ -47,4 +32,6 @@ export default function StudyDetails({ study }: { study: Study }) {
       </p>
     </div>
   );
-}
+};
+
+export default StudyDetails;

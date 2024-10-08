@@ -2,31 +2,10 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import SearchForm from "./Components/SearchForm";
 import StudyCard from "./Components/StudyCard";
 import StudyDetails from "./Components/StudyDetails";
+import { getTrials } from "./utils/api";
+import { Study } from "../types/study";
 
-// import { Study } from '../types/study';
-import { getTrials } from './utils/api';
-
-type Study = {
-  protocolSection: {
-    identificationModule: {
-      officialTitle: string;
-      nctId: string;
-    };
-    statusModule: {
-      overallStatus: string;
-    };
-    descriptionModule: {
-      briefSummary: string;
-    };
-    sponsorCollaboratorsModule: {
-      leadSponsor: {
-        name: string;
-      };
-    };
-  };
-};
-
-export default function SearchHome() {
+const SearchHome: React.FC = () => {
   const [results, setResults] = useState<Study[]>([]);
   const [selectedStudy, setSelectedStudy] = useState<Study | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,13 +14,13 @@ export default function SearchHome() {
   const [searchQuery, setSearchQuery] = useState("");
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = useCallback(async (query: string) => {
     setSearchQuery(query);
     setCurrentPage(1);
     fetchResults(query, 1);
-  };
+  }, []);
 
-  const fetchResults = async (query: string, page: number) => {
+  const fetchResults = useCallback(async (query: string, page: number) => {
     setIsLoading(true);
     try {
       const data = await getTrials({ condition: query, page, limit: 10 });
@@ -49,23 +28,43 @@ export default function SearchHome() {
       setTotalPages(data.total_pages);
       setCurrentPage(page);
     } catch (error) {
-      console.error('Error fetching trials:', error);
+      console.error("Error fetching trials:", error);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const handlePageChange = (newPage: number) => {
-    fetchResults(searchQuery, newPage);
-  };
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      fetchResults(searchQuery, newPage);
+    },
+    [fetchResults, searchQuery]
+  );
 
-  const handleStudyClick = (study: Study) => {
+  const handleStudyClick = useCallback((study: Study) => {
     setSelectedStudy(study);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setSelectedStudy(null);
-  };
+  }, []);
+
+  const handleRemoveStudy = useCallback((study: Study) => {
+    setResults((prevResults) =>
+      prevResults.filter(
+        (s) =>
+          s.protocolSection.identificationModule.nctId !==
+          study.protocolSection.identificationModule.nctId
+      )
+    );
+  }, []);
+
+  const handleClearSearch = useCallback(() => {
+    setResults([]);
+    setTotalPages(0);
+    setCurrentPage(1);
+    setSearchQuery("");
+  }, []);
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
@@ -78,25 +77,6 @@ export default function SearchHome() {
     },
     [modalRef]
   );
-
-  const handleRemoveStudy = (study: Study) => {
-    // Remove the study from the results array
-    setResults((prevResults) =>
-      prevResults.filter(
-        (s) =>
-          s.protocolSection.identificationModule.nctId !==
-          study.protocolSection.identificationModule.nctId
-      )
-    );
-  };
-
-  const handleClearSearch = () => {
-    console.log("BANANA");
-    setResults([]);
-    setTotalPages(0);
-    setCurrentPage(1);
-    setSearchQuery("");
-  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -159,4 +139,6 @@ export default function SearchHome() {
       )}
     </div>
   );
-}
+};
+
+export default SearchHome;

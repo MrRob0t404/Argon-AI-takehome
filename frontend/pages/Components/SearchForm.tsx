@@ -1,24 +1,26 @@
-import { useState } from "react";
+import React, { useState, useCallback } from "react";
 
-export default function SearchForm({
-  onSearch,
-  removeResult,
-}: {
+interface SearchFormProps {
   onSearch: (query: string) => void;
   removeResult: () => void;
-}) {
+}
+
+const SearchForm: React.FC<SearchFormProps> = ({ onSearch, removeResult }) => {
   const [query, setQuery] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch(query);
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      onSearch(query);
+    },
+    [onSearch, query]
+  );
 
-  const handleClearSearch = () => {
+  const handleClearSearch = useCallback(() => {
     setQuery("");
-    onSearch(query);
+    onSearch("");
     removeResult();
-  };
+  }, [onSearch, removeResult]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -28,8 +30,12 @@ export default function SearchForm({
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for a clinical trial..."
       />
-      <button type="submit">Search</button>{" "}
-      <button onClick={handleClearSearch}>Clear Search</button>
+      <button type="submit">Search</button>
+      <button type="button" onClick={handleClearSearch}>
+        Clear Search
+      </button>
     </form>
   );
-}
+};
+
+export default SearchForm;

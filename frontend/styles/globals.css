@@ -50,10 +50,39 @@ a {
 
 /* Study Card */
 .study-card {
-  border: white 1px solid;
-  border-radius: 8px;
-  padding: 24px;
+  border: 1px solid #5a5a5a;
+  padding: 15px;
   margin: 24px;
+  transition: all 0.3s ease;
+}
+
+.study-card.hovered {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  background-color: #6d6d6d;
+}
+
+.study-card h3 {
+  margin-top: 0;
+}
+
+.study-card button {
+  margin-top: 10px;
+}
+
+.remove-button {
+  background-color: #8B0000; /* Dark red background */
+  color: #FFB3BA; /* Light red text */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: #A50000; /* Slightly lighter red on hover */
 }
 
 /* Study Details */

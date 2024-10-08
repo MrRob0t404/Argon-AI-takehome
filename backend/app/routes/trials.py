@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Query
 from services.trial_service import search_trials, get_all_trials
 
-app = APIRouter()
+router = APIRouter()
 
-@app.get("/trials")
+@router.get("/trials")
 def get_trials(
     condition: str = Query(None),
     page: int = Query(1, ge=1),

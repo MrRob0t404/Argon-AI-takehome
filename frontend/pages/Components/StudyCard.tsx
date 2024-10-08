@@ -1,17 +1,8 @@
 import React, { useState } from "react";
+import { Study } from '../../types/study';
 
-// Shows what kind of data we can expect
 interface StudyProps {
-  study: {
-    protocolSection: {
-      identificationModule: {
-        briefTitle: string;
-        nctId: string;
-        organization: { fullName: string };
-      };
-      statusModule: { overallStatus: string };
-    };
-  };
+  study: Study;
   handleStudyClick: () => void;
   removeStudy: () => void;
 }
@@ -37,7 +28,7 @@ const StudyCard: React.FC<StudyProps> = ({
         </p>
         <p>
           <strong>Organization:</strong>{" "}
-          {identificationModule.organization.fullName}
+          {identificationModule.organization?.fullName || "N/A"}
         </p>
         <p>
           <strong>Status:</strong> {statusModule.overallStatus}

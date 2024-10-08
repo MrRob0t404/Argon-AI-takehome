@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import SearchForm from "./Components/SearchForm";
 import StudyCard from "./Components/StudyCard";
 import StudyDetails from "./Components/StudyDetails";
@@ -2871,6 +2871,7 @@ export default function SearchHome() {
   const [results, setResults] = useState<any[]>(mockData);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [selectedStudy, setSelectedStudy] = useState<any | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const handleSearch = (query: string) => {
     // Perform search logic and update results
@@ -2887,6 +2888,29 @@ export default function SearchHome() {
     setSelectedStudy(study);
   };
 
+  const closeModal = () => {
+    setSelectedStudy(null);
+  };
+
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        closeModal();
+      }
+    },
+    [modalRef]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
   return (
     <div className="study-search">
       <h1>SEARCH FOR A CLINICAL STUDY</h1>
@@ -2900,9 +2924,16 @@ export default function SearchHome() {
           />
         ))}
       </div>
-      <div id="study-modal">
-        {selectedStudy && <StudyDetails study={selectedStudy} />}
-      </div>
+      {selectedStudy && (
+        <div className="modal" ref={modalRef}>
+          <div className="modal-content">
+            <span className="close-modal" onClick={closeModal}>
+              &times;
+            </span>
+            <StudyDetails study={selectedStudy} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

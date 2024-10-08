@@ -27,7 +27,6 @@ export default function StudyDetails({ study }: { study: any }) {
       <p>
         <strong>Sponsor:</strong> {sponsorCollaboratorsModule.leadSponsor.name}
       </p>
-      {/* Add more details as necessary */}
     </div>
   );
 }

@@ -1219,7 +1219,7 @@ const mockData = [
       miscInfoModule: { versionHolder: "2024-10-04" },
       conditionBrowseModule: {
         meshes: [
-          { id: "D000000230", term: "Adenocarcinoma" },
+          { id: "D000002300", term: "Adenocarcinoma" },
           { id: "D000004938", term: "Esophageal Neoplasms" },
         ],
         ancestors: [
@@ -2904,6 +2904,18 @@ export default function SearchHome() {
     [modalRef]
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleRemoveStudy = (study: any) => {
+    // Remove the study from the results array
+    setResults((prevResults) =>
+      prevResults.filter(
+        (s) =>
+          s.protocolSection.identificationModule.nctId !==
+          study.protocolSection.identificationModule.nctId
+      )
+    );
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -2920,7 +2932,8 @@ export default function SearchHome() {
           <StudyCard
             key={study.protocolSection.identificationModule.nctId}
             study={study}
-            onClick={() => handleStudyClick(study)}
+            handleStudyClick={() => handleStudyClick(study)}
+            removeStudy={() => handleRemoveStudy(study)}
           />
         ))}
       </div>

@@ -12,6 +12,11 @@ export default function SearchForm({
     onSearch(query);
   };
 
+  const handleClearSearch = () => {
+    setQuery("");
+    onSearch(query);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -20,7 +25,8 @@ export default function SearchForm({
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for a clinical trial..."
       />
-      <button type="submit">Search</button>
+      <button type="submit">Search</button>{" "}
+      <button onClick={handleClearSearch}>Clear Search</button>
     </form>
   );
 }

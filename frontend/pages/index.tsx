@@ -14,21 +14,28 @@ const SearchHome: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const modalRef = useRef<HTMLDivElement | null>(null);
   const [totalResults, setTotalResults] = useState(0);
+  const [noResults, setNoResults] = useState(false);
 
   const fetchResults = useCallback(async (query: string, page: number) => {
     setIsLoading(true);
+    setNoResults(false);
     try {
       const data = await getTrials({ condition: query, page, limit: 10 });
-      if (page === 1) {
-        setResults(data.results);
+      if (data.results.length === 0) {
+        setNoResults(true);
       } else {
-        setResults((prevResults) => [...prevResults, ...data.results]);
+        if (page === 1) {
+          setResults(data.results);
+        } else {
+          setResults((prevResults) => [...prevResults, ...data.results]);
+        }
+        setTotalResults(data.total);
+        setHasMore(data.total > page * 10);
+        setCurrentPage(page);
       }
-      setTotalResults(data.total);
-      setHasMore(data.total > page * 10);
-      setCurrentPage(page);
     } catch (error) {
       console.error("Error fetching trials:", error);
+      setNoResults(true);
     } finally {
       setIsLoading(false);
     }
@@ -71,6 +78,7 @@ const SearchHome: React.FC = () => {
     setResults([]);
     setCurrentPage(1);
     setSearchQuery("");
+    setNoResults(false);
   }, []);
 
   const handleClickOutside = useCallback(
@@ -100,6 +108,11 @@ const SearchHome: React.FC = () => {
     <div className="study-search">
       <h1>SEARCH FOR A CLINICAL STUDY</h1>
       <SearchForm onSearch={handleSearch} removeResult={handleClearSearch} />
+      {noResults && (
+        <div className="no-results">
+          <p>No results found for your search. Please try a different query.</p>
+        </div>
+      )}
       <div className="results">
         {results.map((study) => (
           <StudyCard
@@ -110,7 +123,7 @@ const SearchHome: React.FC = () => {
           />
         ))}
       </div>
-      {shouldShowLoadMore() && hasMore&& (
+      {shouldShowLoadMore() && hasMore && (
         <div className="load-more">
           <button onClick={handleLoadMore} disabled={isLoading}>
             {isLoading ? "Loading..." : "Load More"}

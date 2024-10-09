@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Study } from '../../types/study';
+import { Study } from "../../types/study";
+import styles from "../../styles/StudyCard.module.css"; // Add this import
 
 interface StudyProps {
   study: Study;
@@ -17,34 +18,39 @@ const StudyCard: React.FC<StudyProps> = ({
 
   return (
     <article
-      className={`study-card ${isHovered ? "hovered" : ""}`}
+      className={`${styles.studyCard} ${isHovered ? styles.hovered : ""}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="study-card__content" onClick={handleStudyClick}>
-        <header className="study-card__header">
-          <h2 className="study-card__title">
-            {identificationModule.briefTitle || identificationModule.officialTitle}
+      <div className={styles.content} onClick={handleStudyClick}>
+        <header className={styles.header}>
+          <h2 className={styles.title}>
+            {identificationModule.briefTitle ||
+              identificationModule.officialTitle}
           </h2>
         </header>
-        <section className="study-card__info">
-          <div className="study-card__info-item">
-            <h3 className="study-card__info-label">NCT ID:</h3>
-            <p className="study-card__info-value">{identificationModule.nctId}</p>
+        <section className={styles.info}>
+          <div className={styles.infoItem}>
+            <h3 className={styles.infoLabel}>NCT ID:</h3>
+            <p className={styles.infoValue}>{identificationModule.nctId}</p>
           </div>
-          <div className="study-card__info-item">
-            <h3 className="study-card__info-label">Organization:</h3>
-            <p className="study-card__info-value">
+          <div className={styles.infoItem}>
+            <h3 className={styles.infoLabel}>Organization:</h3>
+            <p className={styles.infoValue}>
               {identificationModule.organization?.fullName || "N/A"}
             </p>
           </div>
-          <div className="study-card__info-item">
-            <h3 className="study-card__info-label">Status:</h3>
-            <p className="study-card__info-value">{statusModule.overallStatus}</p>
+          <div className={styles.infoItem}>
+            <h3 className={styles.infoLabel}>Status:</h3>
+            <p className={styles.infoValue}>{statusModule.overallStatus}</p>
           </div>
         </section>
       </div>
-      <button onClick={removeStudy} className="study-card__remove-button" type="button">
+      <button
+        onClick={removeStudy}
+        className={styles.removeButton}
+        type="button"
+      >
         Remove
       </button>
     </article>

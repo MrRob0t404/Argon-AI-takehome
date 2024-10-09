@@ -1,11 +1,11 @@
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #6d6d6d;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #cbcbcb;
     --foreground: #ededed;
   }
 }
@@ -46,43 +46,11 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: black;
 }
 
-/* Study Card */
-.study-card {
-  border: 1px solid #5a5a5a;
-  padding: 15px;
-  margin: 24px;
-  transition: all 0.3s ease;
-}
-
-.study-card.hovered {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-  background-color: #6d6d6d;
-}
-
-.study-card h3 {
-  margin-top: 0;
-}
-
-.study-card button {
-  margin-top: 10px;
-}
-
-.study-card__remove-button {
-  background-color: #8b0000;
-  color: #ffb3ba;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.study-card__remove-button:hover {
-  background-color: #a50000;
+.no-results {
+  color: red;
 }
 
 /* Study Details */
@@ -117,7 +85,7 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+  background-color: rgba(151, 151, 151, 0.583);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,7 +93,7 @@ a {
 }
 
 .modal-content {
-  background-color: rgb(57, 57, 57);
+  background-color: rgb(118, 118, 118);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

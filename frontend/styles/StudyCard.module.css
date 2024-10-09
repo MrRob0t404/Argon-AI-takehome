@@ -1,0 +1,71 @@
+.studyCard {
+  border: 1px solid #939393;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  margin: 16px;
+  background-color: rgb(151, 151, 151);
+}
+
+.hovered {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  cursor: pointer;
+}
+
+.header {
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4d4242;
+  margin: 0 0 4px 0;
+}
+
+.infoValue {
+  font-size: 1rem;
+  color: #333;
+  margin: 0;
+}
+
+.removeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.removeButton:hover {
+  background-color: #d32f2f;
+}

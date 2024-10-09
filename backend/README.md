@@ -29,7 +29,6 @@ This is a web application designed for Sarah, an executive at Pharma Co., to sea
   - **utils/**: Utility functions like data loading and preprocessing.
 - **clinical_trials.json**: Sample dataset of clinical trials for NSCLC, used to mock the data.
 - **requirements.txt**: Contains a list of Python dependencies.
-- **venv/**: Optional Python virtual environment to isolate dependencies.
 
 ## Setup Instructions
 
@@ -47,9 +46,3 @@ uvicorn app.main:app --reload
 
 > The application will be running at http://127.0.0.1:8000.
 
-Running the Application
-To start the FastAPI server, simply run:
-
-```
-uvicorn app.main:app --reload
-```

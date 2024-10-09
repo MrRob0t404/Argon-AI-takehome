@@ -1,6 +1,7 @@
 from utils.data_loader import load_trials_data
 
 clinical_trials = load_trials_data()
+print(f"Total number of trials loaded: {len(clinical_trials)}")
 
 def _is_match(value, criteria):
     return not criteria or criteria.lower() in value.lower()
@@ -26,5 +27,5 @@ def _paginate_results(results, page, limit):
         "total": len(results),
         "page": page,
         "limit": limit,
-        "total_pages": (len(results) + limit - 1) // limit
+        "total_pages": (len(results) + limit - 1)
     }

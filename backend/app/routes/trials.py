@@ -9,7 +9,9 @@ def get_trials(
     page: int = Query(1, ge=1),
     limit: int = Query(10, ge=1, le=100)
 ):
+    # print('BANANA', len(search_trials(condition, page, limit)))
     if condition:
         return search_trials(condition, page, limit)
     else:
+        # print('getting all results', len(get_all_trials(page, limit)))
         return get_all_trials(page, limit)

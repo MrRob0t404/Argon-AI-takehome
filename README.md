@@ -96,3 +96,65 @@ Compare the number of results for a given query against the total number of tria
 
 f. Cross-validation:
 Use a subset of your data as a test set to evaluate the search function.
+
+Deployment options:
+
+### Plan to Deploy with Github Actions:
+
+**Steps for GitHub Actions**:
+
+1. **Define a workflow YAML file** with the following stages:
+   - **Setup Node and Python** environments.
+   - **Install dependencies** using `npm install` for React and `pip install` for FastAPI.
+   - **Run tests** for both frontend and backend. (unit and integration)
+   - **Build the frontend** using `npm run build`.
+   - **Package and deploy** backend using a Docker image.
+   - **Deploy frontend** to a static hosting service like Vercel or Netlify.
+   - **Deploy backend** to a platform like AWS or Heroku using Docker or any other deployment service.
+
+### Plan to Deploy with CircleCI:
+
+**Steps for CircleCI**:
+
+1. **Define a build pipeline** with the following stages:
+   - **Install frontend and backend dependencies**.
+   - **Run tests** for frontend and backend. (unit and integration)
+   - **Build the frontend** using `npm run build`.
+   - **Build and deploy backend** using Docker.
+   - **Deploy frontend** to Vercel or Netlify. (Preferably Vercel since it’s made with NextJS in mind)
+   - **Deploy backend** to AWS ECS or another platform.
+
+### Pros and Cons of using Github actions:
+
+**Pros**:
+
+- Simplifies workflow management since it’s native to GitHub.
+- Great community support.
+- Thousands of pre-built actions for almost any CI/CD task.
+- Simple YAML syntax, straightforward to set up.
+
+**Cons**:
+
+- UI can be less intuitive for large workflows. Which can compromise visibility for large scale projects. (I have experience with this - why we performed a migration over to CircleCI)
+- Limited control over runners compared to CircleCI.
+
+### Pros and Cons of using CircleCI:
+
+**Pros**:
+
+- Extensive customization of pipelines, containers, and resources.
+- CircleCI excels at running jobs in parallel and distributing tasks efficiently.
+- More flexibility with Docker images.
+- Easier to track and visualize complex workflows. (in my oppinion, they excel at providing a visual representation of the entire workflow).
+- Great community support and orbs.
+
+**Cons**:
+
+- Initial configuration may require more work.
+- Fewer free credits compared to GitHub Actions for private repositories.
+- Needs more setup and permissions if not already integrated with GitHub.
+
+### Recommendation:
+
+- **For simpler projects** or if we prefer a fully GitHub-native solution, **GitHub Actions** might be the better option.
+- **For more complex workflows** with custom Docker requirements and better parallelization, **CircleCI** might offer more flexibility. (my recommendation for future proofing)

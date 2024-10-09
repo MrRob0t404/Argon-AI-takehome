@@ -71,8 +71,8 @@ a {
 }
 
 .remove-button {
-  background-color: #8B0000; /* Dark red background */
-  color: #FFB3BA; /* Light red text */
+  background-color: #8b0000; /* Dark red background */
+  color: #ffb3ba; /* Light red text */
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
@@ -82,7 +82,7 @@ a {
 }
 
 .remove-button:hover {
-  background-color: #A50000; /* Slightly lighter red on hover */
+  background-color: #a50000; /* Slightly lighter red on hover */
 }
 
 /* Study Details */
@@ -91,6 +91,23 @@ a {
   border-radius: 8px;
   padding: 24px;
   margin: 24px;
+}
+
+.study-details__info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: white 1px solid;
+  margin: 8px;
+  justify-content: space-between;
+}
+
+.study-details__info-item {
+  margin: 8px;
+}
+
+.study-details__summary {
+  margin: 8px;
 }
 
 /* Modal styles */

@@ -9,7 +9,7 @@ const SearchHome: React.FC = () => {
   const [results, setResults] = useState<Study[]>([]);
   const [selectedStudy, setSelectedStudy] = useState<Study | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -18,8 +18,12 @@ const SearchHome: React.FC = () => {
     setIsLoading(true);
     try {
       const data = await getTrials({ condition: query, page, limit: 10 });
-      setResults(data.results);
-      setTotalPages(data.total_pages);
+      if (page === 1) {
+        setResults(data.results);
+      } else {
+        setResults((prevResults) => [...prevResults, ...data.results]);
+      }
+      setHasMore(data.results.length === 10);
       setCurrentPage(page);
     } catch (error) {
       console.error("Error fetching trials:", error);
@@ -37,12 +41,9 @@ const SearchHome: React.FC = () => {
     [fetchResults]
   );
 
-  const handlePageChange = useCallback(
-    (newPage: number) => {
-      fetchResults(searchQuery, newPage);
-    },
-    [fetchResults, searchQuery]
-  );
+  const handleLoadMore = useCallback(() => {
+    fetchResults(searchQuery, currentPage + 1);
+  }, [fetchResults, searchQuery, currentPage]);
 
   const handleStudyClick = useCallback((study: Study) => {
     setSelectedStudy(study);
@@ -64,7 +65,6 @@ const SearchHome: React.FC = () => {
 
   const handleClearSearch = useCallback(() => {
     setResults([]);
-    setTotalPages(0);
     setCurrentPage(1);
     setSearchQuery("");
   }, []);
@@ -78,7 +78,7 @@ const SearchHome: React.FC = () => {
         closeModal();
       }
     },
-    [modalRef]
+    [closeModal]
   );
 
   useEffect(() => {
@@ -88,6 +88,7 @@ const SearchHome: React.FC = () => {
     };
   }, [handleClickOutside]);
 
+  console.log(results.length);
   return (
     <div className="study-search">
       <h1>SEARCH FOR A CLINICAL STUDY</h1>
@@ -96,38 +97,21 @@ const SearchHome: React.FC = () => {
         {results.map((study) => (
           <StudyCard
             key={study.protocolSection.identificationModule.nctId}
-            study={{
-              ...study,
-              protocolSection: {
-                ...study.protocolSection,
-                identificationModule: {
-                  ...study.protocolSection.identificationModule,
-                  briefTitle:
-                    study.protocolSection.identificationModule.officialTitle,
-                  organization: { fullName: "Default Organization" },
-                },
-              },
-            }}
+            study={study}
             handleStudyClick={() => handleStudyClick(study)}
             removeStudy={() => handleRemoveStudy(study)}
           />
         ))}
       </div>
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1 || isLoading}
-          >
-            Previous
-          </button>
-          <span>{`Page ${currentPage} of ${totalPages}`}</span>
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages || isLoading}
-          >
-            Next
-          </button>
+      {hasMore && (
+        <div className="load-more">
+          {results.length > 9 ? (
+            <button onClick={handleLoadMore} disabled={isLoading}>
+              {isLoading ? "Loading..." : "Load More"}
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       )}
       {selectedStudy && (

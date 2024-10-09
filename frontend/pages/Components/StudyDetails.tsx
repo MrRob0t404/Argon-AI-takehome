@@ -17,7 +17,6 @@ const StudyDetails: React.FC<StudyDetailsProps> = ({ study }) => {
   return (
     <article className="study-details">
       <header>
-        <h1 className="study-details__title">Study Details:</h1>
         <h2 className="study-details__official-title">
           {identificationModule.officialTitle}
         </h2>

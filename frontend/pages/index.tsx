@@ -14,12 +14,6 @@ const SearchHome: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSearch = useCallback(async (query: string) => {
-    setSearchQuery(query);
-    setCurrentPage(1);
-    fetchResults(query, 1);
-  }, []);
-
   const fetchResults = useCallback(async (query: string, page: number) => {
     setIsLoading(true);
     try {
@@ -33,6 +27,15 @@ const SearchHome: React.FC = () => {
       setIsLoading(false);
     }
   }, []);
+
+  const handleSearch = useCallback(
+    async (query: string) => {
+      setSearchQuery(query);
+      setCurrentPage(1);
+      fetchResults(query, 1);
+    },
+    [fetchResults]
+  );
 
   const handlePageChange = useCallback(
     (newPage: number) => {

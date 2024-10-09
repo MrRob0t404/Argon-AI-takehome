@@ -13,6 +13,7 @@ const SearchHome: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const [totalResults, setTotalResults] = useState(0);
 
   const fetchResults = useCallback(async (query: string, page: number) => {
     setIsLoading(true);
@@ -23,7 +24,8 @@ const SearchHome: React.FC = () => {
       } else {
         setResults((prevResults) => [...prevResults, ...data.results]);
       }
-      setHasMore(data.results.length === 10);
+      setTotalResults(data.total);
+      setHasMore(data.total > page * 10);
       setCurrentPage(page);
     } catch (error) {
       console.error("Error fetching trials:", error);
@@ -54,13 +56,15 @@ const SearchHome: React.FC = () => {
   }, []);
 
   const handleRemoveStudy = useCallback((study: Study) => {
-    setResults((prevResults) =>
-      prevResults.filter(
+    setResults((prevResults) => {
+      const newResults = prevResults.filter(
         (s) =>
           s.protocolSection.identificationModule.nctId !==
           study.protocolSection.identificationModule.nctId
-      )
-    );
+      );
+      return newResults;
+    });
+    setTotalResults((prevTotal) => prevTotal - 1);
   }, []);
 
   const handleClearSearch = useCallback(() => {
@@ -81,6 +85,10 @@ const SearchHome: React.FC = () => {
     [closeModal]
   );
 
+  const shouldShowLoadMore = useCallback(() => {
+    return totalResults > results.length;
+  }, [totalResults, results.length]);
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -88,7 +96,6 @@ const SearchHome: React.FC = () => {
     };
   }, [handleClickOutside]);
 
-  console.log(results.length);
   return (
     <div className="study-search">
       <h1>SEARCH FOR A CLINICAL STUDY</h1>
@@ -103,15 +110,11 @@ const SearchHome: React.FC = () => {
           />
         ))}
       </div>
-      {hasMore && (
+      {shouldShowLoadMore() && hasMore&& (
         <div className="load-more">
-          {results.length > 9 ? (
-            <button onClick={handleLoadMore} disabled={isLoading}>
-              {isLoading ? "Loading..." : "Load More"}
-            </button>
-          ) : (
-            ""
-          )}
+          <button onClick={handleLoadMore} disabled={isLoading}>
+            {isLoading ? "Loading..." : "Load More"}
+          </button>
         </div>
       )}
       {selectedStudy && (

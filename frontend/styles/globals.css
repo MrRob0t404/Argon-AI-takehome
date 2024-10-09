@@ -70,9 +70,9 @@ a {
   margin-top: 10px;
 }
 
-.remove-button {
-  background-color: #8b0000; /* Dark red background */
-  color: #ffb3ba; /* Light red text */
+.study-card__remove-button {
+  background-color: #8b0000;
+  color: #ffb3ba;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
@@ -81,8 +81,8 @@ a {
   transition: background-color 0.3s ease;
 }
 
-.remove-button:hover {
-  background-color: #a50000; /* Slightly lighter red on hover */
+.study-card__remove-button:hover {
+  background-color: #a50000;
 }
 
 /* Study Details */

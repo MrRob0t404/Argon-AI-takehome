@@ -18,4 +18,4 @@ app.include_router(trials.router)
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to Sarah's Clinical Trials API!"}
+    return {"message": "Welcome to Argon AI API!"}

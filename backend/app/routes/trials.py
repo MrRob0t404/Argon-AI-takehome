@@ -9,8 +9,6 @@ def get_trials(
     page: int = Query(1, ge=1),
     limit: int = Query(10, ge=1, le=100)
 ):
-    results = search_trials(condition, page, limit)
-    print(f'Searching trials for {condition}', len(results['results']))
     if condition:
         return search_trials(condition, page, limit)
     else:

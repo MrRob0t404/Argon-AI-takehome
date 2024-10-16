@@ -12,5 +12,4 @@ def get_trials(
     if condition:
         return search_trials(condition, page, limit)
     else:
-        print('getting all results', len(get_all_trials(page, limit)))
         return get_all_trials(page, limit)

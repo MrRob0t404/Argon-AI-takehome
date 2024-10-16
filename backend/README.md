@@ -1,6 +1,6 @@
-# Sarah Clinical Trials Search App
+# Clinical Trials Search App
 
-This is a web application designed for Sarah, an executive at Pharma Co., to search and filter clinical trial data related to Non-Small Cell Lung Cancer (NSCLC). The project is built using **FastAPI** for the backend and **React/NextJS** for the frontend.
+This is a web application designed for Sarah, an executive at Pharma Co., to search and filter clinical trial data related to Non-Small Cell Lung Cancer (NSCLC) and other Clinincal tirals. The project is built using **FastAPI** for the backend and **React/NextJS** for the frontend.
 
 ## Table of Contents
 
